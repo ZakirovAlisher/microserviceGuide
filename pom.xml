@@ -7,6 +7,8 @@
         <module>customer</module>
         <module>fraud</module>
         <module>eureka-server</module>
+        <module>clients</module>
+        <module>notification</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -49,11 +51,14 @@
             <artifactId>spring-cloud-dependencies</artifactId>
             <version>2020.0.3</version>
             <type>pom</type>
-            <scope>import</scope>
+            <scope>runtime</scope>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>3.0.6</version>
+        </dependency>
 
     </dependencies>
 
