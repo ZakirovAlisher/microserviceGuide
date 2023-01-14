@@ -11,7 +11,7 @@ public record NotificationService(NotificationRepository repository) {
         Notification notification = Notification.builder()
                                                 .toCustomerId(request.customerId)
                                                 .sentAt(LocalDateTime.now())
-                                                .content("Hello, thank you for registration!")
+                                                .content(request.message)
                                                 .toEmail(request.email)
                                                 .build();
         repository.save(notification);
