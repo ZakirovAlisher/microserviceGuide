@@ -31,5 +31,7 @@ rabbitmq:
     internal: bookexchanger
   queues:
     notification: simplequeue
+    notificationFraud: simpleFraudNotification
   routing-keys:
     internal-notification: key-value
+    internal-notificationFraud: key-valueFraud

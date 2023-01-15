@@ -17,8 +17,15 @@ public class NotificationConsumer {
             "${rabbitmq.queues.notification}"
     })
     public void consume(NotificationRequest request) {
-        log.info("Consumed {}", request);
+        log.info("Consumed Notification {}", request);
         notificationService.sendNotification(request);
     }
 
+    @RabbitListener(queues = {
+            "${rabbitmq.queues.notificationFraud}"
+    })
+    public void consumeFraud(NotificationRequest request) {
+        log.info("Consumed Fraud Notification {}", request);
+        notificationService.sendNotification(request);
+    }
 }

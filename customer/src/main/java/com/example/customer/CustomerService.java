@@ -3,8 +3,6 @@ package com.example.customer;
 import com.example.amqp.RabbitMQMessageProducer;
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
-import com.example.clients.notification.NotificationClient;
-import com.example.clients.notification.NotificationConstants;
 import com.example.clients.notification.NotificationRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,10 +30,17 @@ public record CustomerService(CustomerRepository customerRepository,
                 .message(String.format("Hello %s!", customer.getFirstName() + " " + customer.getLastName()))
                 .build();
 
-       messageProducer.publish(notificationRequest,
-                               "bookexchanger",
-                               "key-value");
-
+        if (fraudCheckResponse.isFraudster()) {
+            notificationRequest.setMessage("YOURE FROUDSTER!!!!");
+            messageProducer.publish(notificationRequest,
+                                    "bookexchanger",
+                                    "key-valueFraud");
+        }
+        else {
+            messageProducer.publish(notificationRequest,
+                                    "bookexchanger",
+                                    "key-value");
+        }
 //        MyThread thread = new MyThread(customer, notificationClient);
 //        new Thread(thread).start();
 
